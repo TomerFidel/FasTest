@@ -1,0 +1,8 @@
+#Server node modules
+/server/node_modules/
+
+#Server public
+/server/public/
+
+
+
