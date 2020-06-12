@@ -11,12 +11,11 @@ var DBConnection = async function() {
 
     try {
         var connection = await mysql.createConnection(credentials);
-        var conn = await connection.connect();
     }catch(err) {
         throw err;
     }
 
-    return conn;
+    return connection;
 }
 
 module.exports = DBConnection;
