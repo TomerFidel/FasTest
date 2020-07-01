@@ -1,21 +1,17 @@
-const mysql = require('promise-mysql');
-var createError = require("http-errors");
+const mysql = require('mysql');
 
-var DBConnection = async function() {
-    var credentials = {
-        host: process.env.DB_HOST || "",
-        user: process.env.DB_USERNAME || "",
-        password: process.env.DB_PASSWORD || "",
-        database: process.env.DB_NAME || ""
-    }
-
-    try {
-        var connection = await mysql.createConnection(credentials);
-    }catch(err) {
-        throw err;
-    }
-
-    return connection;
+var credentials = {
+    connectionLimit: 10,
+    host: process.env.DB_HOST || "",
+    user: process.env.DB_USERNAME || "",
+    password: process.env.DB_PASSWORD || "",
+    database: process.env.DB_NAME || ""
 }
 
-module.exports = DBConnection;
+var connection = mysql.createPool(credentials);
+
+connection.connect(function(err) {
+    if (err) throw err;
+})
+
+module.exports = connection;
